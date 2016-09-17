@@ -1,25 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { Router, Route, hashHistory } from 'react-router';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+// Páginas
+import App from './Layout/App';
+import Index from './Paginas/Index';
+import Contato from './Paginas/Contato';
 
-class ExecutorSQL extends React.Component {
-
-	render() {
-		return (
-			<MuiThemeProvider>
-				<AppBar
-					style={{ backgroundColor: '#1E88E5' }}
-					title="Executor Teste"
-					iconClassNameRight="muidocs-icon-navigation-expand-more"
-				/>
-			</MuiThemeProvider>
-		);
-	}
-
-}
-
-ReactDOM.render(<ExecutorSQL />, document.getElementById('wrapper'));
+render(
+	<MuiThemeProvider>
+		<Router history={ hashHistory }>
+	        <Route component={ App }>
+		        <Route path="/" component={ Index } />
+		        <Route path="/contato" component={ Contato } />
+	        </Route>
+	    </Router>
+	</MuiThemeProvider>, 
+    document.getElementById('wrapper')
+);

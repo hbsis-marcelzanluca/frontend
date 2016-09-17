@@ -1,17 +1,16 @@
 const webpack = require('webpack');
 
 module.exports = {
-     entry: {
-        app: [
-            'webpack-dev-server/client?http://localhost:8080',
-            'webpack/hot/only-dev-server',
-            './src/main.js'
-        ]
-     },
-
+     entry: './src/main.js',
+     
      output: {
          path: './bin',
          filename: 'app.bundle.js'
+     },
+
+     devServer: {
+        inline: true,
+        port: 8080
      },
 
       module: {
