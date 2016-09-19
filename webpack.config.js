@@ -1,11 +1,13 @@
 const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
      entry: './src/main.js',
      
      output: {
          path: './bin',
-         filename: 'app.bundle.js'
+         filename: 'app.bundle.js',
+         sourceMapFilename: 'app.bundle.js.map'
      },
 
      devServer: {
@@ -35,6 +37,12 @@ module.exports = {
     ],
 
     resolve: {
+        root: path.resolve(__dirname, './src'),
+        alias: {
+            'layouts': './src/layouts',
+            'paginas': './src/paginas',
+            'widgets': './src/widgets'
+        },
         extensions: ['', '.js', '.jsx']
     },
  };

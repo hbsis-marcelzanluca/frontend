@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Navbar from '../shared/Navbar';
+import Navbar from 'widgets/Navbar';
 
 class App extends Component {
 

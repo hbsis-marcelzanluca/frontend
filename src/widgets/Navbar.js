@@ -23,9 +23,6 @@ class Navbar extends Component {
 					<MenuItem
 						containerElement={ <Link to="/" /> }
 						onTouchTap={ this.controlarExibicaoMenu }>Home</MenuItem>
-					<MenuItem
-						containerElement={ <Link to="/contato" /> }
-						onTouchTap={ this.controlarExibicaoMenu }>Contato</MenuItem>
 				</Drawer>
 			</AppBar>
 		);
