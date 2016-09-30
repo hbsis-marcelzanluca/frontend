@@ -15,10 +15,7 @@ class Navbar extends Component {
 
 	render() {
 		return (
-			<AppBar
-				title="HBSIS"
-				onLeftIconButtonTouchTap={ this.controlarExibicaoMenu }
-			>
+			<AppBar title="HBSIS" onLeftIconButtonTouchTap={ this.controlarExibicaoMenu }>
 				<Drawer open={ this.state.aberto } docked={ false }>
 					<MenuItem
 						containerElement={ <Link to="/" /> }

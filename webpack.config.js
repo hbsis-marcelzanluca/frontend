@@ -1,19 +1,23 @@
 const webpack = require('webpack');
 const path = require('path');
 
+const caminhoAbsoluto = path.resolve(__dirname);
+
 module.exports = {
      entry: './src/main.js',
      
      output: {
          path: './bin',
-         filename: 'app.bundle.js',
-         sourceMapFilename: 'app.bundle.js.map'
+         filename: 'app.bundle.js'
      },
 
      devServer: {
         inline: true,
-        port: 8080
+        port: 8080,
+        hot: true
      },
+
+     devtool: 'source-map',
 
       module: {
          loaders: [{
@@ -26,23 +30,22 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false,
-        //     },
-        //     output: {
-        //         comments: false,
-        //     },
-        // }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+            },
+            output: {
+                comments: false,
+            },
+        }),
     ],
 
     resolve: {
-        root: path.resolve(__dirname, './src'),
         alias: {
-            'layouts': './src/layouts',
-            'paginas': './src/paginas',
-            'widgets': './src/widgets'
+            'layouts': caminhoAbsoluto + '/src/layouts',
+            'paginas': caminhoAbsoluto + '/src/paginas',
+            'widgets': caminhoAbsoluto + '/src/widgets'
         },
         extensions: ['', '.js', '.jsx']
-    },
+    }
  };
