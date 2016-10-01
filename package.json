@@ -1,7 +1,7 @@
 {
-  "name": "executorsql",
+  "name": "frontend",
   "version": "1.0.0",
-  "description": "Prompt para execução de scripts em produção",
+  "description": "Reestruturacao do frontend",
   "main": "main.js",
   "scripts": {
     "start": "webpack-dev-server --content-base bin/"
@@ -23,6 +23,7 @@
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-router": "^2.8.0",
-    "react-tap-event-plugin": "^1.0.0"
+    "react-tap-event-plugin": "^1.0.0",
+    "request": "^2.75.0"
   }
 }
