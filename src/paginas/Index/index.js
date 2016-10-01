@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import Tabela from 'widgets/Tabela';
+import request from 'es6-request';
 
 let estiloContainer = {
 	width: '80%',
