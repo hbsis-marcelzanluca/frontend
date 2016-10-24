@@ -1,35 +1,50 @@
  import React, { Component } from 'react';
+ import Cabecalho from './Cabecalho';
+ import Corpo from './Corpo';
  import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
  class Tabela extends Component {
- 	render() {
- 		let linhas = this.props.linhas;
- 		let colunas = this.props.colunas;
 
- 		return (
+ 	render() {
+ 		let colunas = this.props.colunas;
+ 		let linhas = this.props.linhas;
+
+ 		return ( 				
  			<Table>
-				<TableHeader>
-					<TableRow key={1}>
-					{ colunas.map(coluna => {
-						return (
-							<TableHeaderColumn>{ coluna.descricao }</TableHeaderColumn>
-						);
-					}) }
-					</TableRow>
-				</TableHeader>
-				<TableBody>
-					{ linhas.map(linha => {
-						return (
-							<TableRow key={ linha.id }>
-								<TableRowColumn>{ linha.id }</TableRowColumn>
-								<TableRowColumn>{ linha.texto }</TableRowColumn>
-							</TableRow>
-						);
-					}) }
-				</TableBody>
+				{ this.gerarCabecalho(colunas) }
+				{ this.gerarLinhas(linhas, colunas) }
 			</Table>
  		);
  	}
+
+ 	gerarCabecalho = dadosCabecalho => {
+ 		return (
+ 			<TableHeader>
+				<TableRow key={ 1 }>{
+					dadosCabecalho.map((dado, indice) => {
+						return (<TableHeaderColumn key={ indice }>{ dado.descricao }</TableHeaderColumn>);
+					})
+				}</TableRow>
+ 			</TableHeader>
+ 		);
+	}
+
+	gerarLinhas = (linhas, colunas) => {
+		return (
+			<TableBody>{
+				linhas.map((linha, indiceLinha) => {
+					return(
+						<TableRow key={ indiceLinha }>{
+							colunas.map((coluna, indiceColuna) => {
+								return(<TableRowColumn key={ indiceColuna }>{ linha[coluna.campo] }</TableRowColumn>);
+							})
+						}</TableRow>
+					)
+				})
+			}</TableBody>
+		);
+	}
+
  }
 
  export default Tabela;

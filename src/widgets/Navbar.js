@@ -11,20 +11,23 @@ class Navbar extends Component {
 		this.state = { aberto: false };
 	}
 
-	controlarExibicaoMenu = () => this.setState({ aberto: !this.state.aberto });
-
 	render() {
 		return (
 			<AppBar title="HBSIS" onLeftIconButtonTouchTap={ this.controlarExibicaoMenu }>
 				<Drawer open={ this.state.aberto } docked={ false }>
 					<MenuItem
 						containerElement={ <Link to="/" /> }
-						onTouchTap={ this.controlarExibicaoMenu }>Home</MenuItem>
+						onTouchTap={ this.controlarExibicaoMenu }>Início</MenuItem>
+
+					<MenuItem
+						containerElement={ <Link to="/veiculo/perfis" /> }
+						onTouchTap={ this.controlarExibicaoMenu }>Perfis de veículo</MenuItem>
 				</Drawer>
 			</AppBar>
 		);
 	}
 
+	controlarExibicaoMenu = () => this.setState({ aberto: !this.state.aberto });
 }
 
 export default Navbar;

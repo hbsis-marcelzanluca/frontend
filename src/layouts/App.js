@@ -7,6 +7,7 @@ class App extends Component {
 		return (
 			<div>
 				<Navbar />
+				<br/>
 				
 				{ /* Este é o 'body' da aplicação (Não remova) */ }
 				{ this.props.children }
