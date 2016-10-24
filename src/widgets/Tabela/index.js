@@ -36,6 +36,7 @@
 					return(
 						<TableRow key={ indiceLinha }>{
 							colunas.map((coluna, indiceColuna) => {
+								if (coluna.acoes) return this.gerarAcoes(coluna, indiceColuna, linha);
 								return(<TableRowColumn key={ indiceColuna }>{ linha[coluna.campo] }</TableRowColumn>);
 							})
 						}</TableRow>
@@ -43,6 +44,16 @@
 				})
 			}</TableBody>
 		);
+	}
+
+	gerarAcoes = (coluna, indiceColuna, registro) => {
+		return (
+			<TableRowColumn key={ indiceColuna }>{
+				coluna.acoes.map((acao, indiceAcao) => {
+					return(<a key={ indiceAcao } href="javascript:;" onClick={ acao.funcao.bind(this, registro) }>{ acao.descricao }</a>);
+				})
+			}</TableRowColumn>
+		)
 	}
 
  }

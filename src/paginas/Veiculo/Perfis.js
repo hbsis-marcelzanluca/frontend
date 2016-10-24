@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import Tabela from 'widgets/Tabela';
-// import Request from 'request';
-// import Requisicoes from 'widgets/Requisicoes';
+import Requisicoes from 'widgets/Requisicoes';
 
 let estiloContainer = {	width: '80%', margin: '0 auto' };
-let urlBase = 'http://localhost:8001/wms/new';
-
-let dados = [
-	{ "descricao": "6x35/4x42", "baias35": 6, "baias42": 4 },
-	{ "descricao": "4x35/6x42", "baias35": 4, "baias42": 6 },
-	{ "descricao": "8x35/2x42", "baias35": 8, "baias42": 2 },
-	{ "descricao": "2x35/8x42", "baias35": 2, "baias42": 8 },
-];
+let urlBase = 'http://localhost:8001/ocp-gerenciador';
 
 class Perfis extends Component {
 
@@ -22,15 +14,21 @@ class Perfis extends Component {
 			linhas: [],
 			colunas: [
 				{ "descricao": "Descrição", "campo": "descricao" },
-				{ "descricao": "Baias 35", "campo": "baias35" },
-				{ "descricao": "Baias 42", "campo": "baias42" },
-				{ "descricao": "Ações", "campo": "baias42" },
-			] 
+				{ "descricao": "Baias 35", "campo": "quantidadeBaias35" },
+				{ "descricao": "Baias 42", "campo": "quantidadeBaias42" },
+				{ "descricao": "Ações", "acoes": [ 
+						{ "descricao": "Editar", "icone": "", "funcao": this.editarRegistro }, 
+						{ "descricao": "Excluir", "icone": "", "funcao": this.excluirRegistro }
+					] 
+				}
+			]
 		};
 	}
 
 	componentDidMount() {
-		this.setState({ linhas: dados });
+		Requisicoes
+			.get(`${urlBase}/perfil-veiculo`)
+			.then(resposta => this.setState({ linhas: resposta.data }));
 	}
 
 	render() { 
@@ -41,6 +39,14 @@ class Perfis extends Component {
 				</Paper>
 			</div>
 		);
+	}
+
+	editarRegistro = registro => {
+		console.log("Editando registro! ", registro);
+	}
+
+	excluirRegistro = registro => {
+		console.log("Excluindo registro! ", registro);
 	}
 
 }
