@@ -20,11 +20,17 @@ module.exports = {
      devtool: 'source-map',
 
       module: {
-         loaders: [{
-             test: /\.js$/,
-             exclude: /node_modules/,
-             loaders: ['react-hot', 'babel-loader'],
-         }]
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loaders: ['react-hot', 'babel-loader'],
+            },
+            {
+                test: /\.css$/,
+                loader: "style!css"
+            }
+        ]
      },
 
     plugins: [

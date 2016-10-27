@@ -1,7 +1,6 @@
  import React, { Component } from 'react';
- import Cabecalho from './Cabecalho';
- import Corpo from './Corpo';
  import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+ import EstilosTabela from './tabela.css';
 
  class Tabela extends Component {
 
@@ -10,7 +9,12 @@
  		let linhas = this.props.linhas;
 
  		return ( 				
- 			<Table>
+ 			<Table
+				fixedHeader={ true }
+				fixedFooter={ false }
+				selectable={ false }
+				multiSelectable={ false }
+			>
 				{ this.gerarCabecalho(colunas) }
 				{ this.gerarLinhas(linhas, colunas) }
 			</Table>
@@ -19,7 +23,7 @@
 
  	gerarCabecalho = dadosCabecalho => {
  		return (
- 			<TableHeader>
+ 			<TableHeader displaySelectAll={ false } adjustForCheckbox={ false }>
 				<TableRow key={ 1 }>{
 					dadosCabecalho.map((dado, indice) => {
 						return (<TableHeaderColumn key={ indice }>{ dado.descricao }</TableHeaderColumn>);
@@ -31,7 +35,7 @@
 
 	gerarLinhas = (linhas, colunas) => {
 		return (
-			<TableBody>{
+			<TableBody showRowHover={ true } displayRowCheckbox={ false }>{
 				linhas.map((linha, indiceLinha) => {
 					return(
 						<TableRow key={ indiceLinha }>{
@@ -48,9 +52,9 @@
 
 	gerarAcoes = (coluna, indiceColuna, registro) => {
 		return (
-			<TableRowColumn key={ indiceColuna }>{
+			<TableRowColumn key={ indiceColuna } className="acoes-tabela-coluna">{
 				coluna.acoes.map((acao, indiceAcao) => {
-					return(<a key={ indiceAcao } href="javascript:;" onClick={ acao.funcao.bind(this, registro) }>{ acao.descricao }</a>);
+					return(<a key={ indiceAcao } href="javascript:;" className="acao-tabela" onClick={ acao.funcao.bind(this, registro) }><i className={ `fa fa-${acao.icone}` }></i></a>);
 				})
 			}</TableRowColumn>
 		)

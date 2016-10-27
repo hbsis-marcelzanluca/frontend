@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
 import Tabela from 'widgets/Tabela';
+import {Card, CardTitle, CardText} from 'material-ui/Card';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import FormularioPerfil from './Perfil.form';
 import Requisicoes from 'widgets/Requisicoes';
 
-let estiloContainer = {	width: '80%', margin: '0 auto' };
-let urlBase = 'http://localhost:8001/ocp-gerenciador';
+const estiloContainer = {	width: '80%', margin: '0 auto' };
+const style = { position: 'absolute', right: 0, bottom: 0, margin: 20 };
+const urlBase = 'http://localhost:8001/gerenciador-ocp';
 
 class Perfis extends Component {
 
@@ -17,8 +21,8 @@ class Perfis extends Component {
 				{ "descricao": "Baias 35", "campo": "quantidadeBaias35" },
 				{ "descricao": "Baias 42", "campo": "quantidadeBaias42" },
 				{ "descricao": "Ações", "acoes": [ 
-						{ "descricao": "Editar", "icone": "", "funcao": this.editarRegistro }, 
-						{ "descricao": "Excluir", "icone": "", "funcao": this.excluirRegistro }
+						{ "descricao": "Editar", "icone": "pencil", "funcao": this.editarRegistro }, 
+						{ "descricao": "Excluir", "icone": "trash", "funcao": this.excluirRegistro }
 					] 
 				}
 			]
@@ -33,16 +37,27 @@ class Perfis extends Component {
 
 	render() { 
 		return (
-			<div style={ estiloContainer }>
-				<Paper zDepth={ 1 }>
-					<Tabela linhas={ this.state.linhas } colunas={ this.state.colunas } />
-				</Paper>
+			<div>
+				<div style={ estiloContainer }>
+					<Card>
+						<CardTitle title="Perfis" subtitle="Configurações de perfil para os caminhões" />
+						<CardText>
+							<Tabela linhas={ this.state.linhas } colunas={ this.state.colunas } />
+						</CardText>
+					</Card>
+				</div>
+				
+				<FormularioPerfil />
+
+				<FloatingActionButton secondary={true} style={style}>
+					<ContentAdd />
+				</FloatingActionButton>
 			</div>
 		);
 	}
 
 	editarRegistro = registro => {
-		console.log("Editando registro! ", registro);
+		alert(`Editando registro: ${registro.descricao}`);
 	}
 
 	excluirRegistro = registro => {
