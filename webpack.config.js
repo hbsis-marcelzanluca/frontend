@@ -50,7 +50,8 @@ module.exports = {
         alias: {
             'layouts': caminhoAbsoluto + '/src/layouts',
             'paginas': caminhoAbsoluto + '/src/paginas',
-            'widgets': caminhoAbsoluto + '/src/widgets'
+            'widgets': caminhoAbsoluto + '/src/widgets',
+            'src': caminhoAbsoluto + '/src'
         },
         extensions: ['', '.js', '.jsx']
     }
