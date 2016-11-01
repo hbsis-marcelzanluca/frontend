@@ -1,20 +1,20 @@
+import configuracoes from 'src/configs';
 import React, { Component } from 'react';
 import Tabela from 'widgets/Tabela';
-import {Card, CardTitle, CardText} from 'material-ui/Card';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
+import { Dialog, Card, CardTitle, CardText,	FloatingActionButton } from 'material-ui';
+import { Container, Col } from 'react-grid-system';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import FormularioPerfil from './Perfil.form';
+import ModalPerfil from './Perfil.modal';
 import Requisicoes from 'widgets/Requisicoes';
 
-const estiloContainer = {	width: '80%', margin: '0 auto' };
 const style = { position: 'absolute', right: 0, bottom: 0, margin: 20 };
-const urlBase = 'http://localhost:8001/gerenciador-ocp';
 
 class Perfis extends Component {
 
 	constructor(props) { 
-		super(props); 
+		super(props);
 		this.state = { 
+			modalPerfilAberta: false,
 			linhas: [],
 			colunas: [
 				{ "descricao": "Descrição", "campo": "descricao" },
@@ -31,25 +31,23 @@ class Perfis extends Component {
 
 	componentDidMount() {
 		Requisicoes
-			.get(`${urlBase}/perfil-veiculo`)
+			.get(`${configuracoes.urlBase}/gerenciador-ocp/perfil-veiculo`)
 			.then(resposta => this.setState({ linhas: resposta.data }));
 	}
 
 	render() { 
 		return (
 			<div>
-				<div style={ estiloContainer }>
+				<Container>	
 					<Card>
 						<CardTitle title="Perfis" subtitle="Configurações de perfil para os caminhões" />
-						<CardText>
-							<Tabela linhas={ this.state.linhas } colunas={ this.state.colunas } />
-						</CardText>
+						<CardText><Tabela linhas={ this.state.linhas } colunas={ this.state.colunas } /></CardText>
 					</Card>
-				</div>
+				</Container>
 				
-				<FormularioPerfil />
+				<ModalPerfil aberto={ this.state.modalPerfilAberta } />
 
-				<FloatingActionButton secondary={true} style={style}>
+				<FloatingActionButton secondary={true} style={style} onTouchTap={ this.manipuladorModalPerfil }>
 					<ContentAdd />
 				</FloatingActionButton>
 			</div>
@@ -61,7 +59,17 @@ class Perfis extends Component {
 	}
 
 	excluirRegistro = registro => {
-		console.log("Excluindo registro! ", registro);
+		let idPerfil = registro.id;
+		Requisicoes
+			.delete(`${configuracoes.urlBase}/gerenciador-ocp/perfil-veiculo/${idPerfil}`)
+			.then(() => { 
+				let perfis = this.state.linhas.filter(perfil => perfil.id != idPerfil);
+				this.setState({ linhas: perfis });
+			});
+	}
+
+	manipuladorModalPerfil = () => {
+		this.setState({ modalPerfilAberta: !this.state.modalPerfilAberta });
 	}
 
 }

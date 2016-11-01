@@ -1,14 +1,24 @@
+import configuracoes from 'src/configs';
 import React, { Component } from 'react';
-import { Container, Col } from 'react-grid-system';
+import { Container, Row, Col } from 'react-grid-system';
 import { TextField, FlatButton, RaisedButton, Dialog } from 'material-ui';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
+import Requisicoes from 'widgets/Requisicoes';
 
 class FormularioPerfil extends Component {
 
+	salvar = (dados) => {
+		Requisicoes
+			.post(`${configuracoes.urlBase}/gerenciador-ocp/perfil-veiculo`, dados)
+			.then(() => this.aoSalvar);
+	}
+
+	aoSalvar = () => { if (this.props.hasOwnProperty('aoSalvar')) this.props.aoSalvar(); }
+
 	render() {
 		return (
-			<Dialog title="Perfil" modal={ false } open={ true }>
-				<Formsy.Form>
+			<Formsy.Form onValidSubmit={ this.salvar }>
+				<Row>
 					<Col md={ 12 }>
 						<FormsyText 
 							name="descricao" 
@@ -17,6 +27,9 @@ class FormularioPerfil extends Component {
 							required
 						/>
 					</Col>
+				</Row>
+
+				<Row>
 					<Col md={ 6 }>
 						<FormsyText 
 							name="quantidadeBaias35" 
@@ -35,8 +48,17 @@ class FormularioPerfil extends Component {
 							required
 						/>
 					</Col>
-				</Formsy.Form>
-			</Dialog>
+				</Row>
+
+				<Row style={ { textAlign: 'right' } }>
+					<br/>
+					<FlatButton
+						label="Salvar"
+						type="submit"
+						primary={true}
+					/>
+				</Row>
+			</Formsy.Form>
 		);
 	}
 
