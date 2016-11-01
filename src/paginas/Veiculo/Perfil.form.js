@@ -7,22 +7,15 @@ import Requisicoes from 'widgets/Requisicoes';
 
 class FormularioPerfil extends Component {
 
-	salvar = (dados) => {
-		Requisicoes
-			.post(`${configuracoes.urlBase}/gerenciador-ocp/perfil-veiculo`, dados)
-			.then(() => this.aoSalvar);
-	}
-
-	aoSalvar = () => { if (this.props.hasOwnProperty('aoSalvar')) this.props.aoSalvar(); }
-
 	render() {
 		return (
-			<Formsy.Form onValidSubmit={ this.salvar }>
+			<Formsy.Form onValidSubmit={ this.props.aoSalvar }>
 				<Row>
 					<Col md={ 12 }>
 						<FormsyText 
 							name="descricao" 
 							floatingLabelText="Descrição do perfil" 
+							value={ this.props.dados.descricao }
 							fullWidth={ true } 
 							required
 						/>

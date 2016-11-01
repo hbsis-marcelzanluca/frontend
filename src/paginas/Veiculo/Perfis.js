@@ -1,11 +1,10 @@
-import configuracoes from 'src/configs';
 import React, { Component } from 'react';
-import Tabela from 'widgets/Tabela';
-import { Dialog, Card, CardTitle, CardText,	FloatingActionButton } from 'material-ui';
-import { Container, Col } from 'react-grid-system';
+import { Container } from 'react-grid-system';
+import { Dialog, Card, CardTitle, CardText, FlatButton,	FloatingActionButton } from 'material-ui';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import ModalPerfil from './Perfil.modal';
-import Requisicoes from 'widgets/Requisicoes';
+import ServicoPerfis from './Perfis.servico';
+import Tabela from 'widgets/Tabela';
+import FormularioPerfil from './Perfil.form';
 
 const style = { position: 'absolute', right: 0, bottom: 0, margin: 20 };
 
@@ -15,6 +14,7 @@ class Perfis extends Component {
 		super(props);
 		this.state = { 
 			modalPerfilAberta: false,
+			perfilParaEditar: {},
 			linhas: [],
 			colunas: [
 				{ "descricao": "Descrição", "campo": "descricao" },
@@ -30,9 +30,7 @@ class Perfis extends Component {
 	}
 
 	componentDidMount() {
-		Requisicoes
-			.get(`${configuracoes.urlBase}/gerenciador-ocp/perfil-veiculo`)
-			.then(resposta => this.setState({ linhas: resposta.data }));
+		this.buscarRegistros();
 	}
 
 	render() { 
@@ -44,8 +42,10 @@ class Perfis extends Component {
 						<CardText><Tabela linhas={ this.state.linhas } colunas={ this.state.colunas } /></CardText>
 					</Card>
 				</Container>
-				
-				<ModalPerfil aberto={ this.state.modalPerfilAberta } />
+
+				<Dialog modal={ false } open={ this.state.modalPerfilAberta } onRequestClose={ this.manipuladorModalPerfil }>
+					<FormularioPerfil aoSalvar={ this.salvarRegistro } dados={ this.state.perfilParaEditar } />
+				</Dialog>
 
 				<FloatingActionButton secondary={true} style={style} onTouchTap={ this.manipuladorModalPerfil }>
 					<ContentAdd />
@@ -55,14 +55,31 @@ class Perfis extends Component {
 	}
 
 	editarRegistro = registro => {
-		alert(`Editando registro: ${registro.descricao}`);
+		this.setState({ perfilParaEditar: registro });
+		this.manipuladorModalPerfil();
+	}
+
+	buscarRegistros = () => {
+		ServicoPerfis
+			.buscarPerfis()
+			.then(resposta => this.setState({ linhas: resposta }));
+	}
+
+	salvarRegistro = (dadosPerfil) => {
+		ServicoPerfis
+			.salvarPerfil(dadosPerfil)
+			.then(() => {
+				this.buscarRegistros()
+				this.manipuladorModalPerfil();
+			});
 	}
 
 	excluirRegistro = registro => {
 		let idPerfil = registro.id;
-		Requisicoes
-			.delete(`${configuracoes.urlBase}/gerenciador-ocp/perfil-veiculo/${idPerfil}`)
-			.then(() => { 
+
+		ServicoPerfis
+			.excluirPerfil(idPerfil)
+			.then(() => {
 				let perfis = this.state.linhas.filter(perfil => perfil.id != idPerfil);
 				this.setState({ linhas: perfis });
 			});
