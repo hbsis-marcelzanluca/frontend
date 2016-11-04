@@ -19,6 +19,10 @@ class Navbar extends Component {
 						containerElement={ <Link to="/" /> }
 						onTouchTap={ this.controlarExibicaoMenu }>Início</MenuItem>
 
+						<MenuItem
+							containerElement={ <Link to="/veiculo" /> }
+							onTouchTap={ this.controlarExibicaoMenu }>Veículos</MenuItem>
+
 					<MenuItem
 						containerElement={ <Link to="/veiculo/perfis" /> }
 						onTouchTap={ this.controlarExibicaoMenu }>Perfis de veículo</MenuItem>

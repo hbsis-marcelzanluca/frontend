@@ -43,8 +43,11 @@ class Perfis extends Component {
 					</Card>
 				</Container>
 
-				<Dialog modal={ false } open={ this.state.modalPerfilAberta } onRequestClose={ this.manipuladorModalPerfil }>
-					<FormularioPerfil aoSalvar={ this.salvarRegistro } dados={ this.state.perfilParaEditar } />
+				<Dialog modal={ false } open={ this.state.modalPerfilAberta }>
+					<FormularioPerfil 
+						aoSalvar={ this.salvarRegistro } 
+						aoCancelar={ this.manipuladorModalPerfil }
+						dados={ this.state.perfilParaEditar } />
 				</Dialog>
 
 				<FloatingActionButton secondary={true} style={style} onTouchTap={ this.manipuladorModalPerfil }>
@@ -66,8 +69,9 @@ class Perfis extends Component {
 	}
 
 	salvarRegistro = (dadosPerfil) => {
+		let registroParaSalvar = Object.assign(this.state.perfilParaEditar, dadosPerfil);
 		ServicoPerfis
-			.salvarPerfil(dadosPerfil)
+			.salvarPerfil(registroParaSalvar)
 			.then(() => {
 				this.buscarRegistros()
 				this.manipuladorModalPerfil();

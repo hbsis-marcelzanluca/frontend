@@ -6,7 +6,8 @@ injectTapEventPlugin();
 
 import App from './layouts/App';
 import Index from './paginas/Index';
-import Perfis from './paginas/Veiculo/Perfis';
+import Perfis from './paginas/Veiculo/Perfil/Perfis';
+import Veiculos from './paginas/Veiculo/Veiculos';
 
 class Rotas extends Component {
 	render() {
@@ -15,6 +16,7 @@ class Rotas extends Component {
 				<Router history={ hashHistory }>
 			        <Route component={ App }>
 				        <Route path="/" component={ Index } />
+								<Route path="/veiculo" component={ Veiculos } />
 				        <Route path="/veiculo/perfis" component={ Perfis } />
 			        </Route>
 			    </Router>
