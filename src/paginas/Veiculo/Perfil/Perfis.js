@@ -18,6 +18,9 @@ class Perfis extends Component {
 			linhas: [],
 			colunas: [
 				{ "descricao": "Descrição", "campo": "descricao" },
+				{ "descricao": "Baias 14", "campo": "quantidadeBaias14" },
+				{ "descricao": "Baias 21", "campo": "quantidadeBaias21" },
+				{ "descricao": "Baias 28", "campo": "quantidadeBaias28" },
 				{ "descricao": "Baias 35", "campo": "quantidadeBaias35" },
 				{ "descricao": "Baias 42", "campo": "quantidadeBaias42" },
 				{ "descricao": "Ações", "acoes": [ 
@@ -44,10 +47,11 @@ class Perfis extends Component {
 				</Container>
 
 				<Dialog modal={ false } open={ this.state.modalPerfilAberta }>
-					<FormularioPerfil 
+					<FormularioPerfil
 						aoSalvar={ this.salvarRegistro } 
 						aoCancelar={ this.manipuladorModalPerfil }
-						dados={ this.state.perfilParaEditar } />
+						dados={ this.state.perfilParaEditar }
+					/>
 				</Dialog>
 
 				<FloatingActionButton secondary={true} style={style} onTouchTap={ this.manipuladorModalPerfil }>

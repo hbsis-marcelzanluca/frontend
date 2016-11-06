@@ -9,6 +9,7 @@ import FormularioVeiculo from './Veiculo.form';
 const style = { position: 'absolute', right: 0, bottom: 0, margin: 20 };
 
 class Veiculo extends Component {
+
   constructor(props) {
 		super(props);
     this.state = {
@@ -41,8 +42,12 @@ class Veiculo extends Component {
           </Card>
         </Container>
 
-        <Dialog modal={ false } open={ this.state.modalVeiculoAberta } >
-          <FormularioVeiculo aoSalvar={ this.salvarRegistro } aoCancelar={ this.manipuladorModalVeiculo } dados={ this.state.veiculoParaEditar } />
+        <Dialog modal={ false } open={ this.state.modalVeiculoAberta } style={ { overflowY: 'inherit' } }>
+          <FormularioVeiculo
+            aoSalvar={ this.salvarRegistro } 
+            aoCancelar={ this.manipuladorModalVeiculo } 
+            dados={ this.state.veiculoParaEditar }
+          />
         </Dialog>
 
         <FloatingActionButton secondary={true} style={style} onTouchTap={ this.manipuladorModalVeiculo }>
@@ -64,7 +69,6 @@ class Veiculo extends Component {
   }
 
   salvarRegistro = (dadosVeiculo) => {
-    debugger;
     let registroParaSalvar = Object.assign(
       this.state.veiculoParaEditar,
       dadosVeiculo
@@ -85,7 +89,6 @@ class Veiculo extends Component {
   }
 
   manipuladorModalVeiculo = () => {
-    console.log("entrou");
     this.setState({ modalVeiculoAberta: !this.state.modalVeiculoAberta });
   }
 

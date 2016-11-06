@@ -58,6 +58,7 @@ class FormularioVeiculo extends Component {
 
 				<Row>
 					<Col md={12}>
+						<br/>
 						<Select
 							name="perfis"
 							multi
@@ -95,6 +96,10 @@ class FormularioVeiculo extends Component {
 		let perfisSelecionados = this.state.perfisSelecionados.map(perfil => perfil.value);
 		let dadosParaSalvar = Object.assign(dadosFormulario, { perfis: perfisSelecionados });
 		this.props.aoSalvar(dadosParaSalvar);
+	}
+
+	quandoEditar = () => {
+
 	}
 
 }

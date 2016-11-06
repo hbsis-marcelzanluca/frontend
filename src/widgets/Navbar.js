@@ -14,14 +14,14 @@ class Navbar extends Component {
 	render() {
 		return (
 			<AppBar title="HBSIS" onLeftIconButtonTouchTap={ this.controlarExibicaoMenu }>
-				<Drawer open={ this.state.aberto } docked={ false }>
+				<Drawer open={ this.state.aberto } docked={ false } onRequestChange={ this.controlarExibicaoMenu }>
 					<MenuItem
 						containerElement={ <Link to="/" /> }
 						onTouchTap={ this.controlarExibicaoMenu }>Início</MenuItem>
 
-						<MenuItem
-							containerElement={ <Link to="/veiculo" /> }
-							onTouchTap={ this.controlarExibicaoMenu }>Veículos</MenuItem>
+					<MenuItem
+						containerElement={ <Link to="/veiculo" /> }
+						onTouchTap={ this.controlarExibicaoMenu }>Veículos</MenuItem>
 
 					<MenuItem
 						containerElement={ <Link to="/veiculo/perfis" /> }
